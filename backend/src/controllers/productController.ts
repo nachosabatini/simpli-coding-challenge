@@ -4,12 +4,11 @@ import Product from '../models/Product';
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const { page = 1, limit = 10, filter = '' } = req.query;
-    const regex = new RegExp(filter.toString(), 'i');
+    const { page = 1, limit = 10, sortByPrice = 'asc' } = req.query;
+    const count = await Product.countDocuments();
 
-    const count = await Product.countDocuments({ name: regex });
-
-    const products = await Product.find({ name: regex })
+    const products = await Product.find()
+      .sort({ price: sortByPrice === 'asc' ? 1 : -1 }) // Sort products by price
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit));
 
