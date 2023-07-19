@@ -47,7 +47,7 @@ const Navbar = () => {
       <LinkContainer>
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
-        <Link href="/">Add</Link>
+        <Link href="/management">Management</Link>
       </LinkContainer>
     </NavbarContainer>
   );

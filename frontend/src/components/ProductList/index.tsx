@@ -25,16 +25,10 @@ const GridContainer = styled.div`
 `;
 
 const ProductList = ({ products }: ProductListProps) => {
-  console.log(products);
-
   return (
     <>
-      {products.map((product) => (
-        <ProductCard key={product._id} product={product} />
-      ))}
-
       <GridContainer>
-        {Products.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </GridContainer>
@@ -43,41 +37,3 @@ const ProductList = ({ products }: ProductListProps) => {
 };
 
 export default ProductList;
-
-const Products = [
-  {
-    _id: "1",
-    name: "Product 1",
-    price: 100,
-    image: "http://placekitten.com/200/300",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    _id: "2",
-    name: "Product 2",
-    price: 200,
-    image: "http://placekitten.com/200/300",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    _id: "3",
-    name: "Product 3",
-    price: 300,
-    image: "http://placekitten.com/400/300",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    _id: "4",
-    name: "Product 4",
-    price: 400,
-    image: "http://placekitten.com/300/300",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    _id: "5",
-    name: "Product 5",
-    price: 500,
-    image: "http://placekitten.com/300/300",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-];

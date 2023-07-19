@@ -42,21 +42,35 @@ const Button = styled.button`
   border-radius: 4px;
   margin-top: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #7a32e8;
+    transition: background-color 0.3s;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Card>
-      {/* <Image
+      <Image
         src={product.image}
         alt={product.name}
         width={300}
         height={200}
         style={{ objectFit: "contain" }}
-      /> */}
+      />
       <Title>{product.name}</Title>
-      <Price>{product.price}</Price>
-      <Button>Buy Now</Button>
+      <Price>{`$ ${product.price}`}</Price>
+      <ButtonContainer>
+        <Button>Learn More</Button>
+        <Button>Learn More</Button>
+      </ButtonContainer>
     </Card>
   );
 };

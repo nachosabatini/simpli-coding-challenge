@@ -13,11 +13,23 @@ export const getAllProducts = async (req: Request, res: Response) => {
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit));
 
+    // Convert the image buffers to Base64 data URLs
+    const productsWithImages = products.map((product) => {
+      const imageBuffer = product.image;
+      const base64Image = Buffer.from(imageBuffer).toString('base64');
+      const dataURL = `data:image/jpeg;base64,${base64Image}`;
+
+      return {
+        ...product.toObject(),
+        image: dataURL,
+      };
+    });
+
     res.json({
       totalProducts: count,
       totalPages: Math.ceil(count / Number(limit)),
       currentPage: Number(page),
-      products,
+      products: productsWithImages,
     });
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -34,7 +46,18 @@ export const getProductById = async (req: Request, res: Response) => {
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    res.json(product);
+
+    // Convert the image buffer to a Base64 data URL
+    const imageBuffer = product.image;
+    const base64Image = Buffer.from(imageBuffer).toString('base64');
+    const dataURL = `data:image/jpeg;base64,${base64Image}`;
+
+    // Add the dataURL to the product object
+    const productWithImage = {
+      ...product.toObject(),
+      image: dataURL,
+    };
+    res.json(productWithImage);
   } catch (error) {
     console.error('Error fetching product by ID:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -43,12 +66,13 @@ export const getProductById = async (req: Request, res: Response) => {
 
 // Create a new product
 export const createProduct = async (req: Request, res: Response) => {
-  const { name, image, description, price } = req.body;
+  const { name, description, price } = req.body;
+  const { buffer: imageBuffer } = req.file as Express.Multer.File;
 
   try {
     const product = new Product({
       name,
-      image,
+      image: imageBuffer,
       description,
       price,
     });

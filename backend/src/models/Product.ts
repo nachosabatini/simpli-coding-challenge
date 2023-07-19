@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 
 interface ProductDocument extends Document {
   name: string;
-  image: string;
+  image: Buffer;
   description: string;
   price: number;
 }
@@ -13,7 +13,7 @@ const productSchema = new Schema<ProductDocument>({
     required: true,
   },
   image: {
-    type: String,
+    type: Buffer,
     required: true,
   },
   description: {
