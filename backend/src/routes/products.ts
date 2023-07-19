@@ -14,7 +14,7 @@ const upload = fileUploader();
 productRouter.get('/products', getAllProducts);
 productRouter.get('/products/:id', getProductById);
 productRouter.post('/products', upload.single('image'), createProduct);
-productRouter.put('/products/:id', updateProduct);
+productRouter.put('/products/:id', upload.single('image'), updateProduct);
 productRouter.delete('/products/:id', deleteProduct);
 
 export default productRouter;
