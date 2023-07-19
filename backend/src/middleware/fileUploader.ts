@@ -9,8 +9,6 @@ const fileUploader = () => {
     file: Express.Multer.File,
     cb: multer.FileFilterCallback
   ) => {
-    console.log(file);
-
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
     } else {

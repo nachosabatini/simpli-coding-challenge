@@ -77,7 +77,15 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
     });
     const savedProduct = await product.save();
-    res.status(201).json(savedProduct);
+    const newimageBuffer = product.image;
+    const base64Image = Buffer.from(newimageBuffer).toString('base64');
+    const dataURL = `data:image/jpeg;base64,${base64Image}`;
+    const productWithImage = {
+      ...savedProduct.toObject(),
+      image: dataURL,
+    };
+
+    res.status(201).json(productWithImage);
   } catch (error) {
     console.error('Error creating product:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -87,18 +95,32 @@ export const createProduct = async (req: Request, res: Response) => {
 // Update a specific product by ID
 export const updateProduct = async (req: Request, res: Response) => {
   const productId = req.params.id;
-  const { name, image, description, price } = req.body;
+  const { name, description, price } = req.body;
+  const imageBuffer = req.file?.buffer;
 
   try {
-    const product = await Product.findByIdAndUpdate(
-      productId,
-      { name, image, description, price },
-      { new: true }
-    );
+    const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    res.json(product);
+
+    product.name = name;
+    product.description = description;
+    product.price = price;
+
+    if (imageBuffer) {
+      product.image = imageBuffer;
+    }
+
+    const updatedProduct = await product.save();
+    const newimageBuffer = product.image;
+    const base64Image = Buffer.from(newimageBuffer).toString('base64');
+    const dataURL = `data:image/jpeg;base64,${base64Image}`;
+    const productWithImage = {
+      ...updatedProduct.toObject(),
+      image: dataURL,
+    };
+    res.json(productWithImage);
   } catch (error) {
     console.error('Error updating product:', error);
     res.status(500).json({ message: 'Internal Server Error' });
