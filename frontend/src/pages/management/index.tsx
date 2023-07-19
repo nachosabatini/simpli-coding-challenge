@@ -1,6 +1,5 @@
-import React from "react";
-import ProductList from "@/components/ProductList";
-import ProductForm from "@/components/ProductForm";
+import Container from "@/components/Container";
+import Products from "@/components/Products";
 
 export const getServerSideProps = async () => {
   const res = await fetch("http://localhost:4000/api/products");
@@ -13,14 +12,13 @@ export const getServerSideProps = async () => {
   };
 };
 
-const Products = ({ products }: any) => {
+const ManagementPage = ({ products }: any) => {
   return (
-    <div>
+    <Container>
       <h1>Create, Edit & Delete</h1>
-      <ProductForm />
-      <ProductList products={products.products} />
-    </div>
+      <Products products={products} isEditing={true} />
+    </Container>
   );
 };
 
-export default Products;
+export default ManagementPage;

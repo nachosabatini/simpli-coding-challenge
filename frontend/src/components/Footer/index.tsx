@@ -5,24 +5,22 @@ import Link from "@/components/Link";
 const FooterContainer = styled.footer`
   background-color: #3b047e;
   color: white;
-  height: 200px;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  padding: 24px;
   width: 100%;
 `;
 
 const FooterContent = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 24px;
-  padding: 24px;
   max-width: 1200px;
   margin: 0 auto;
 `;
 
 const Column = styled.div`
   flex: 1;
+  margin-bottom: 24px;
 `;
 
 const Title = styled.h3`

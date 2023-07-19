@@ -26,6 +26,7 @@ interface LinkProps {
   href: string;
   color?: "white" | "black";
   underline?: boolean;
+  active?: boolean;
   children: React.ReactNode;
 }
 
@@ -33,10 +34,11 @@ const Link = ({
   href,
   color = "black",
   underline = false,
+  active = false,
   children,
 }: LinkProps) => {
   return (
-    <StyledLink color={color} underline={underline} href={href}>
+    <StyledLink color={color} underline={underline} href={href} active={active}>
       {children}
     </StyledLink>
   );
