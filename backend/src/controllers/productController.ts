@@ -13,7 +13,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit));
 
-    // Convert the image buffers to Base64 data URLs
     const productsWithImages = products.map((product) => {
       return {
         ...product.toObject(),
