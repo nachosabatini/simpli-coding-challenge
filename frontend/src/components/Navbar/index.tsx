@@ -1,9 +1,9 @@
-import React from "react";
-import Link from "@/components/Link";
-import styled from "styled-components";
-import Image from "next/image";
-import simplimuvLogo from "../../../public/images/simplimuv-logo.png";
-import { useRouter } from "next/router";
+import React from 'react';
+import Link from '@/components/Link';
+import styled from 'styled-components';
+import Image from 'next/image';
+import simplimuvLogo from '../../../public/images/simplimuv-logo.png';
+import { useRouter } from 'next/router';
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -48,15 +48,15 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <Container>
-        <Icon width={300} height={300} src={simplimuvLogo} alt="Icon" />
+        <Icon width={300} height={300} src={simplimuvLogo} alt='Icon' />
         <LinkContainer>
-          <Link href="/" active={router.pathname === "/"}>
+          <Link href='/' active={router.pathname === '/'}>
             Home
           </Link>
-          <Link href="/products" active={router.pathname === "/products"}>
+          <Link href='/products' active={router.pathname === '/products'}>
             Products
           </Link>
-          <Link href="/management" active={router.pathname === "/management"}>
+          <Link href='/management' active={router.pathname === '/management'}>
             Management
           </Link>
         </LinkContainer>

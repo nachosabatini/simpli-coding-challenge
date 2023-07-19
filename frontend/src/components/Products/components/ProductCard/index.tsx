@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import Image from "next/image";
-import { Product } from "@/types";
-import { useRouter } from "next/router";
-import Button from "@/components/Button";
+import React from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
+import { Product } from '@/types';
+import { useRouter } from 'next/router';
+import Button from '@/components/Button';
 
 interface ProductCardProps {
   product: Product;
@@ -63,22 +63,22 @@ const ProductCard = ({
   return (
     <Card>
       <ImageContainer>
-        <Image src={product.image} alt={product.name} layout="fill" />
+        <Image src={product.image} alt={product.name} fill={true} />
       </ImageContainer>
       <div style={{ flex: 1 }}>
         <Title>{product.name}</Title>
         <Price>{`$ ${product.price}`}</Price>
         {isEditing ? (
           <ButtonContainer>
-            <Button onClick={onEdit} variant="secondary">
+            <Button onClick={onEdit} variant='secondary'>
               Edit
             </Button>
-            <Button onClick={onDelete} variant="danger">
+            <Button onClick={onDelete} variant='danger'>
               Delete
             </Button>
           </ButtonContainer>
         ) : (
-          <Button onClick={handleLearnMore} variant="primary">
+          <Button onClick={handleLearnMore} variant='primary'>
             Learn More
           </Button>
         )}

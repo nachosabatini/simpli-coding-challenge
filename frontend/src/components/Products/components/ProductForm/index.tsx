@@ -1,8 +1,8 @@
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import { Product } from "@/types";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import Button from '@/components/Button';
+import Input from '@/components/Input';
+import { Product } from '@/types';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 const FormContainer = styled.form`
   display: flex;
@@ -20,9 +20,9 @@ const ProductForm = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
+    name: '',
+    description: '',
+    price: '',
   });
   const [image, setImage] = useState(null);
 
@@ -35,14 +35,14 @@ const ProductForm = ({
       });
     } else {
       setFormData({
-        name: "",
-        description: "",
-        price: "",
+        name: '',
+        description: '',
+        price: '',
       });
 
       setImage(null);
       if (fileInputRef.current) {
-        fileInputRef.current.value = "";
+        fileInputRef.current.value = '';
       }
     }
   }, [selectedProduct, onSubmit]);
@@ -72,46 +72,44 @@ const ProductForm = ({
 
     onSubmit(productData);
     if (fileInputRef.current) {
-      console.log("entro");
-
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
       <Input
-        type="text"
-        name="name"
+        type='text'
+        name='name'
         value={formData.name}
         onChange={handleChange}
-        placeholder="Name"
+        placeholder='Name'
         required
       />
       <Input
-        type="textarea"
-        name="description"
+        type='textarea'
+        name='description'
         value={formData.description}
         onChange={handleChange}
-        placeholder="Description"
+        placeholder='Description'
         required
       />
       <Input
-        type="number"
-        name="price"
+        type='number'
+        name='price'
         value={formData.price}
         onChange={handleChange}
-        placeholder="Price"
+        placeholder='Price'
         required
       />
       <Input
-        type="file"
+        type='file'
         ref={fileInputRef}
         onChange={handleFileChange}
-        accept="image/*"
+        accept='image/*'
       />
-      <Button variant="primary" type="submit">
-        {selectedProduct ? "Update Product" : "Create Product"}
+      <Button variant='primary' type='submit'>
+        {selectedProduct ? 'Update Product' : 'Create Product'}
       </Button>
     </FormContainer>
   );

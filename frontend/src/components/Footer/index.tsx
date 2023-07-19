@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Link from "@/components/Link";
+import React from 'react';
+import styled from 'styled-components';
+import Link from '@/components/Link';
 
 const FooterContainer = styled.footer`
   background-color: #3b047e;
@@ -59,13 +59,13 @@ const Footer = () => {
         <Column>
           <Title>Links</Title>
           <LinkContainer>
-            <Link href="#" underline color="white">
+            <Link href='#' underline color='white'>
               Link 1
             </Link>
-            <Link href="#" underline color="white">
+            <Link href='#' underline color='white'>
               Link 2
             </Link>
-            <Link href="#" underline color="white">
+            <Link href='#' underline color='white'>
               Link 3
             </Link>
           </LinkContainer>

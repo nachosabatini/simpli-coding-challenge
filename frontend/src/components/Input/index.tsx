@@ -3,14 +3,14 @@ import React, {
   TextareaHTMLAttributes,
   Ref,
   forwardRef,
-} from "react";
-import styled, { css } from "styled-components";
+} from 'react';
+import styled, { css } from 'styled-components';
 
-type InputTypes = "text" | "tel" | "password" | "number" | "email" | "file";
+type InputTypes = 'text' | 'tel' | 'password' | 'number' | 'email' | 'file';
 type InputElementProps = InputHTMLAttributes<HTMLInputElement>;
 type TextareaElementProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-interface InputProps<T extends InputTypes | "textarea"> {
+interface InputProps<T extends InputTypes | 'textarea'> {
   type: T;
   label?: string;
   id?: string;
@@ -18,8 +18,8 @@ interface InputProps<T extends InputTypes | "textarea"> {
   required?: boolean;
   placeholder?: string;
   accept?: string;
-  value?: T extends "textarea" ? string : string | number;
-  onChange?: T extends "textarea"
+  value?: T extends 'textarea' ? string : string | number;
+  onChange?: T extends 'textarea'
     ? (event: React.ChangeEvent<HTMLTextAreaElement>) => void
     : (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -52,14 +52,14 @@ const StyledTextarea = styled.textarea`
 `;
 
 const Input = forwardRef(
-  <T extends InputTypes | "textarea">(
+  <T extends InputTypes | 'textarea'>(
     { type, label, ...props }: InputProps<T>,
-    ref: Ref<T extends "textarea" ? HTMLTextAreaElement : HTMLInputElement>
+    ref: Ref<T extends 'textarea' ? HTMLTextAreaElement : HTMLInputElement>
   ) => {
     return (
       <InputContainer>
         {label && <Label>{label}</Label>}
-        {type === "textarea" ? (
+        {type === 'textarea' ? (
           <StyledTextarea
             ref={ref as Ref<HTMLTextAreaElement>}
             {...(props as TextareaElementProps)}
@@ -76,5 +76,5 @@ const Input = forwardRef(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 export default Input;

@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { GetStaticProps, GetStaticPaths } from "next";
-import { Product } from "@/types";
-import styled from "styled-components";
-import { useRouter } from "next/router";
-import Container from "@/components/Container";
-import Modal from "@/components/Modal";
-import LeadForm from "@/components/LeadForm";
+import React, { useState } from 'react';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { Product } from '@/types';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import Modal from '@/components/Modal';
+import LeadForm from '@/components/LeadForm';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const productsData = await fetch("http://localhost:4000/api/products");
+  const productsData = await fetch('http://localhost:4000/api/products');
   const products = await productsData.json();
 
   const paths = products.products.map((product: Product) => ({
@@ -42,6 +41,7 @@ type Props = {
 const ProductDetailsContainer = styled.div`
   display: flex;
   justify-content: center;
+  gap: 40px;
   padding-top: 80px;
   max-width: 1440px;
   margin: 0 auto;
@@ -108,7 +108,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
     setShowModal(false);
   };
   return (
-    <Container>
+    <>
       <ProductDetailsContainer>
         <ProductImage src={product.image} alt={product.name} />
         <ProductDetails>
@@ -124,7 +124,7 @@ const ProductPage: React.FC<Props> = ({ product }) => {
           <LeadForm product={product} onClose={handleCloseModal} />
         </Modal>
       )}
-    </Container>
+    </>
   );
 };
 

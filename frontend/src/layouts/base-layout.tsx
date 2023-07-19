@@ -1,7 +1,8 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import { PropsWithChildren } from "react";
-import { createGlobalStyle } from "styled-components";
+import Container from '@/components/Container';
+import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
+import { PropsWithChildren } from 'react';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
 html,
@@ -22,10 +23,6 @@ a {
 * {
     box-sizing: border-box;
 }
-#__next {
-  min-height: 100%;
-  position: relative;
-}
 `;
 
 const Layout = ({ children }: PropsWithChildren) => {
@@ -33,7 +30,9 @@ const Layout = ({ children }: PropsWithChildren) => {
     <>
       <GlobalStyles />
       <Navbar />
-      <main>{children}</main>
+      <main>
+        <Container>{children}</Container>
+      </main>
       <Footer />
     </>
   );

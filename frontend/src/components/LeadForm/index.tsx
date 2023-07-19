@@ -1,7 +1,7 @@
-import { Product } from "@/types";
-import React, { useState } from "react";
-import styled from "styled-components";
-import Input from "@/components/Input";
+import { Product } from '@/types';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Input from '@/components/Input';
 
 const FormContainer = styled.form`
   position: relative;
@@ -37,9 +37,9 @@ const LeadForm = ({
   onClose: () => void;
 }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name: '',
+    email: '',
+    phone: '',
     product: product._id,
   });
 
@@ -54,28 +54,28 @@ const LeadForm = ({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:4000/api/leads", {
-        method: "POST",
+      const response = await fetch('http://localhost:4000/api/leads', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        alert("Lead submitted successfully!");
+        alert('Lead submitted successfully!');
         setFormData({
-          name: "",
-          email: "",
-          phone: "",
+          name: '',
+          email: '',
+          phone: '',
           product: product._id,
         });
       } else {
         const data = await response.json();
-        alert(data.message || "Failed to submit lead.");
+        alert(data.message || 'Failed to submit lead.');
       }
     } catch (error) {
-      console.error("Error submitting lead:", error);
-      alert("Failed to submit lead. Please try again.");
+      console.error('Error submitting lead:', error);
+      alert('Failed to submit lead. Please try again.');
     }
   };
 
@@ -84,33 +84,33 @@ const LeadForm = ({
       <CloseButton onClick={onClose}>X</CloseButton>
       <h1>Submit a Lead</h1>
       <Input
-        type="text"
-        name="name"
+        type='text'
+        name='name'
         value={formData.name}
         onChange={handleChange}
         required
-        label="Name"
+        label='Name'
       />
 
       <Input
-        type="email"
-        label="Email"
-        name="email"
+        type='email'
+        label='Email'
+        name='email'
         value={formData.email}
         onChange={handleChange}
         required
       />
 
       <Input
-        type="tel"
-        label="Phone"
-        name="phone"
+        type='tel'
+        label='Phone'
+        name='phone'
         value={formData.phone}
         onChange={handleChange}
         required
       />
 
-      <Button type="submit">Submit</Button>
+      <Button type='submit'>Submit</Button>
     </FormContainer>
   );
 };

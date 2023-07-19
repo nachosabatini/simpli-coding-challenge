@@ -1,8 +1,8 @@
-import React from "react";
-import ProductList from "./components/ProductList";
-import ProductForm from "./components/ProductForm";
-import { Product } from "@/types";
-import useProductAPI from "@/hooks/useProductsAPI";
+import React from 'react';
+import ProductList from './components/ProductList';
+import ProductForm from './components/ProductForm';
+import { Product } from '@/types';
+import useProductAPI from '@/hooks/useProductsAPI';
 
 interface ProductsProps {
   products: {

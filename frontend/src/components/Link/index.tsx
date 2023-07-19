@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import NextLink from "next/link";
+import React from 'react';
+import styled from 'styled-components';
+import NextLink from 'next/link';
 
 const StyledLink = styled(NextLink)<{
   underline: boolean;
   color: string;
   active?: boolean;
 }>`
-  color: ${(props) => (props.color === "white" ? "white" : "black")};
-  text-decoration: ${(props) => (props.underline ? "underline" : "none")};
+  color: ${(props) => (props.color === 'white' ? 'white' : 'black')};
+  text-decoration: ${(props) => (props.underline ? 'underline' : 'none')};
   transition: color 0.3s;
   margin-left: 16px;
   &:hover {
@@ -24,7 +24,7 @@ const StyledLink = styled(NextLink)<{
 
 interface LinkProps {
   href: string;
-  color?: "white" | "black";
+  color?: 'white' | 'black';
   underline?: boolean;
   active?: boolean;
   children: React.ReactNode;
@@ -32,7 +32,7 @@ interface LinkProps {
 
 const Link = ({
   href,
-  color = "black",
+  color = 'black',
   underline = false,
   active = false,
   children,

@@ -1,7 +1,7 @@
-import React, { ButtonHTMLAttributes } from "react";
-import styled, { css } from "styled-components";
+import React, { ButtonHTMLAttributes } from 'react';
+import styled, { css } from 'styled-components';
 
-type ButtonVariant = "primary" | "secondary" | "danger" | "toggled";
+type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'toggled';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -49,8 +49,8 @@ const DangerButton = styled.button`
 
 const ToggledButton = styled.button<{ isActive?: boolean }>`
   ${sharedButtonStyles}
-  background-color: ${(props) => (props.isActive ? "#903df7" : "white")};
-  color: ${(props) => (props.isActive ? "white" : "#903df7")};
+  background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
+  color: ${(props) => (props.isActive ? 'white' : '#903df7')};
   border: 1px solid #903df7;
   ${(props) =>
     props.isActive &&
@@ -62,15 +62,15 @@ const ToggledButton = styled.button<{ isActive?: boolean }>`
 
 const Button: React.FC<ButtonProps> = ({
   isActive,
-  variant = "primary",
+  variant = 'primary',
   ...props
 }) => {
   switch (variant) {
-    case "secondary":
+    case 'secondary':
       return <SecondaryButton {...props} />;
-    case "danger":
+    case 'danger':
       return <DangerButton {...props} />;
-    case "toggled":
+    case 'toggled':
       return <ToggledButton {...props} isActive={isActive} />;
     default:
       return <PrimaryButton {...props} />;
