@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Product from '../models/Product';
+import { BufferParser } from '../lib/bufferParser';
 
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
@@ -14,13 +15,9 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
     // Convert the image buffers to Base64 data URLs
     const productsWithImages = products.map((product) => {
-      const imageBuffer = product.image;
-      const base64Image = Buffer.from(imageBuffer).toString('base64');
-      const dataURL = `data:image/jpeg;base64,${base64Image}`;
-
       return {
         ...product.toObject(),
-        image: dataURL,
+        image: BufferParser(product.image),
       };
     });
 
@@ -46,15 +43,9 @@ export const getProductById = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Convert the image buffer to a Base64 data URL
-    const imageBuffer = product.image;
-    const base64Image = Buffer.from(imageBuffer).toString('base64');
-    const dataURL = `data:image/jpeg;base64,${base64Image}`;
-
-    // Add the dataURL to the product object
     const productWithImage = {
       ...product.toObject(),
-      image: dataURL,
+      image: BufferParser(product.image),
     };
     res.json(productWithImage);
   } catch (error) {
@@ -76,12 +67,10 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
     });
     const savedProduct = await product.save();
-    const newimageBuffer = product.image;
-    const base64Image = Buffer.from(newimageBuffer).toString('base64');
-    const dataURL = `data:image/jpeg;base64,${base64Image}`;
+
     const productWithImage = {
       ...savedProduct.toObject(),
-      image: dataURL,
+      image: BufferParser(savedProduct.image),
     };
 
     res.status(201).json(productWithImage);
@@ -112,12 +101,10 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     const updatedProduct = await product.save();
-    const newimageBuffer = product.image;
-    const base64Image = Buffer.from(newimageBuffer).toString('base64');
-    const dataURL = `data:image/jpeg;base64,${base64Image}`;
+
     const productWithImage = {
       ...updatedProduct.toObject(),
-      image: dataURL,
+      image: BufferParser(updatedProduct.image),
     };
     res.json(productWithImage);
   } catch (error) {
