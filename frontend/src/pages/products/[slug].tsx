@@ -72,7 +72,7 @@ const ProductDetailsContainer = styled.div`
   max-width: 1440px;
   margin: 0 auto;
 
-  @media (max-width: 390px) {
+  @media (max-width: 700px) {
     flex-direction: column;
     align-items: center;
   }
@@ -84,7 +84,7 @@ const ProductImage = styled.img`
   margin-right: 20px;
   border: 1px solid #ccc;
 
-  @media (max-width: 390px) {
+  @media (max-width: 700px) {
     max-width: 100%;
     margin-right: 0;
     margin-bottom: 20px;
