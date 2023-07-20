@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Overlay = styled.div`
@@ -21,6 +20,10 @@ const ModalContent = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   width: 100%;
+
+  @media (max-width: 600px) {
+    max-width: 90%;
+  }
 `;
 
 interface ModalProps {

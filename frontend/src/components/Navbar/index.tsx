@@ -1,9 +1,9 @@
-import React from 'react';
 import Link from '@/components/Link';
 import styled from 'styled-components';
 import Image from 'next/image';
 import simplimuvLogo from '../../../public/images/simplimuv-logo.png';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -39,7 +39,7 @@ const LinkContainer = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar: FC = () => {
   const router = useRouter();
 
   return (

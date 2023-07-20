@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import Link from '@/components/Link';
 
@@ -40,7 +40,7 @@ const LinkContainer = styled.div`
   gap: 8px;
 `;
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <FooterContainer>
       <FooterContent>

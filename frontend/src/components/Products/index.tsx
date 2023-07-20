@@ -1,19 +1,21 @@
-import React from 'react';
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import { Product } from '@/types';
 import useProductAPI from '@/hooks/useProductsAPI';
 
 interface ProductsProps {
-  products: {
-    products: Product[];
-    totalPages: number;
-    currentPage: number;
-  };
+  products: Product[];
+  initialTotalPages: number;
+  initialCurrentPage: number;
   isEditing?: boolean;
 }
 
-const Products = ({ products, isEditing = false }: ProductsProps) => {
+const Products = ({
+  products,
+  initialTotalPages,
+  initialCurrentPage,
+  isEditing = false,
+}: ProductsProps) => {
   const {
     allProducts,
     selectedProduct,
@@ -24,11 +26,7 @@ const Products = ({ products, isEditing = false }: ProductsProps) => {
     handleDeleteProduct,
     handleSubmit,
     sortByPrice,
-  } = useProductAPI(
-    products.products,
-    products.totalPages,
-    products.currentPage
-  );
+  } = useProductAPI(products, initialTotalPages, initialCurrentPage);
 
   const handlePageChange = async (page: number, sortByPrice: boolean) => {
     await fetchProducts(page, sortByPrice);

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { useState } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
 import { Product } from '@/types';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import Modal from '@/components/Modal';
 import LeadForm from '@/components/LeadForm';
 import Title from '@/components/Title';
@@ -96,10 +95,6 @@ const ProductDetails = styled.div`
   flex-direction: column;
 `;
 
-const ProductTitle = styled.h1`
-  margin-bottom: 10px;
-`;
-
 const ProductPrice = styled.span`
   margin-bottom: 10px;
   font-size: 18px;
@@ -107,6 +102,7 @@ const ProductPrice = styled.span`
 
 const ProductDescription = styled.p`
   margin-bottom: 20px;
+  line-height: 1.5rem;
 `;
 
 const CTAButton = styled.button`
@@ -118,13 +114,8 @@ const CTAButton = styled.button`
   cursor: pointer;
 `;
 
-const ProductPage: React.FC<Props> = ({ product }) => {
-  const router = useRouter();
+const ProductPage: NextPage<Props> = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
-
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   const handleBuyNow = () => {
     setShowModal(true);
@@ -138,12 +129,12 @@ const ProductPage: React.FC<Props> = ({ product }) => {
       <ProductDetailsContainer>
         <ProductImage src={product.image} alt={product.name} />
         <ProductDetails>
-          <ProductTitle>{product.name}</ProductTitle>
+          <Title level={1}>{product.name}</Title>
           <ProductPrice>USD {product.price.toFixed(2)}</ProductPrice>
           <Title level={3}>Description</Title>
           <ProductDescription>{product.description}</ProductDescription>
           <CTAButton onClick={handleBuyNow} style={{ width: '40%' }}>
-            Subscribe
+            I want it!
           </CTAButton>
         </ProductDetails>
       </ProductDetailsContainer>

@@ -1,6 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 import NextLink from 'next/link';
+import { FC } from 'react';
 
 const StyledLink = styled(NextLink)<{
   underline: boolean;
@@ -30,13 +30,13 @@ interface LinkProps {
   children: React.ReactNode;
 }
 
-const Link = ({
+const Link: FC<LinkProps> = ({
   href,
   color = 'black',
   underline = false,
   active = false,
   children,
-}: LinkProps) => {
+}) => {
   return (
     <StyledLink color={color} underline={underline} href={href} active={active}>
       {children}

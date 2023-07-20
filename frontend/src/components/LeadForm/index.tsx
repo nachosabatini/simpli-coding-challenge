@@ -1,7 +1,8 @@
 import { Product } from '@/types';
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import Input from '@/components/Input';
+import Title from '@/components/Title';
 
 const FormContainer = styled.form`
   position: relative;
@@ -29,13 +30,10 @@ const CloseButton = styled.button`
   font-size: 20px;
 `;
 
-const LeadForm = ({
-  product,
-  onClose,
-}: {
+const LeadForm: FC<{
   product: Product;
   onClose: () => void;
-}) => {
+}> = ({ product, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -82,7 +80,7 @@ const LeadForm = ({
   return (
     <FormContainer onSubmit={handleSubmit}>
       <CloseButton onClick={onClose}>X</CloseButton>
-      <h1>Submit a Lead</h1>
+      <Title level={1}>Submit your information</Title>
       <Input
         type='text'
         name='name'

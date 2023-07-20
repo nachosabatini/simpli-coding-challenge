@@ -1,4 +1,4 @@
-import React, { ReactNode, HTMLAttributes } from 'react';
+import { ReactNode, HTMLAttributes, FC } from 'react';
 import styled, { css } from 'styled-components';
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
@@ -6,27 +6,25 @@ type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 const headingStyles = {
   1: css`
     font-size: 2.5rem;
-    font-weight: bold;
+    margin-bottom: 20px;
   `,
   2: css`
     font-size: 2rem;
-    font-weight: bold;
   `,
   3: css`
-    font-size: 1.75rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+
+    color: #333;
   `,
   4: css`
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.25rem;
   `,
   5: css`
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1.15rem;
   `,
   6: css`
     font-size: 1rem;
-    font-weight: bold;
   `,
 };
 
@@ -37,10 +35,12 @@ interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 
 const StyledTitle = styled.h1<TitleProps>`
   margin: 0;
+  font-weight: bold;
+  line-height: 1.55rem;
   ${(props) => headingStyles[props.level]}
 `;
 
-const Title: React.FC<TitleProps> = ({ level, children, ...rest }) => {
+const Title: FC<TitleProps> = ({ level, children, ...rest }) => {
   return (
     <StyledTitle as={`h${level}`} level={level} {...rest}>
       {children}

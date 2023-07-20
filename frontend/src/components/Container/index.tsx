@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const ContainerWrapper = styled.div`
@@ -15,7 +15,7 @@ const ContentWrapper = styled.div`
   flex: 1;
 `;
 
-const Container = ({ children }: PropsWithChildren) => {
+const Container: FC = ({ children }: PropsWithChildren) => {
   return (
     <ContainerWrapper>
       <ContentWrapper>{children}</ContentWrapper>
