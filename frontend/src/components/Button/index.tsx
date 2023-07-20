@@ -36,7 +36,9 @@ const sharedButtonStyles = css<SharedButtonStyles>`
     `}
 `;
 
-const PrimaryButton = styled.button<SharedButtonStyles>`
+const PrimaryButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['isActive', 'isDisabled'].includes(prop),
+})<SharedButtonStyles>`
   ${sharedButtonStyles}
   background-color: #903df7;
   color: white;
@@ -46,7 +48,9 @@ const PrimaryButton = styled.button<SharedButtonStyles>`
   }
 `;
 
-const SecondaryButton = styled.button<SharedButtonStyles>`
+const SecondaryButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['isActive', 'isDisabled'].includes(prop),
+})<SharedButtonStyles>`
   ${sharedButtonStyles}
   background-color: #f0f0f0;
   color: black;
@@ -56,7 +60,9 @@ const SecondaryButton = styled.button<SharedButtonStyles>`
   }
 `;
 
-const DangerButton = styled.button<SharedButtonStyles>`
+const DangerButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['isActive', 'isDisabled'].includes(prop),
+})<SharedButtonStyles>`
   ${sharedButtonStyles}
   background-color: #f44336;
   color: white;
@@ -66,7 +72,9 @@ const DangerButton = styled.button<SharedButtonStyles>`
   }
 `;
 
-const ToggledButton = styled.button<SharedButtonStyles>`
+const ToggledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['isActive', 'isDisabled'].includes(prop),
+})<SharedButtonStyles>`
   ${sharedButtonStyles}
   background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
   color: ${(props) => (props.isActive ? 'white' : '#903df7')};
@@ -78,7 +86,9 @@ const ToggledButton = styled.button<SharedButtonStyles>`
   }
 `;
 
-const PaginationButtonVariant = styled.button<SharedButtonStyles>`
+const PaginationButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['isActive', 'isDisabled'].includes(prop),
+})<SharedButtonStyles>`
   ${sharedButtonStyles}
   margin: 0 5px;
   background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
@@ -117,7 +127,7 @@ const Button: React.FC<ButtonProps> = ({
       );
     case 'pagination':
       return (
-        <PaginationButtonVariant
+        <PaginationButton
           {...props}
           isActive={isActive}
           isDisabled={isDisabled}

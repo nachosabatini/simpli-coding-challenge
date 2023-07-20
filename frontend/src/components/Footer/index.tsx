@@ -65,7 +65,7 @@ const Footer: FC = () => {
             <Link href='#' underline color='white'>
               Link 2
             </Link>
-            <Link href='#' underline color='white'>
+            <Link href='#' underline={true} color='white'>
               Link 3
             </Link>
           </LinkContainer>

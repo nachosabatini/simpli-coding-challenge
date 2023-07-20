@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import NextLink from 'next/link';
 import { FC } from 'react';
-
-const StyledLink = styled(NextLink)<{
+interface StyledLinkProps {
   underline: boolean;
   color: string;
   active?: boolean;
-}>`
+}
+
+const StyledLink = styled(NextLink).withConfig({
+  shouldForwardProp: (prop) => !['color', 'underline', 'active'].includes(prop),
+})<StyledLinkProps>`
   color: ${(props) => (props.color === 'white' ? 'white' : 'black')};
   text-decoration: ${(props) => (props.underline ? 'underline' : 'none')};
   transition: color 0.3s;

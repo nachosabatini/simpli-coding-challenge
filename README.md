@@ -4,6 +4,8 @@ This project is a coding challenge solution that showcases the development of a 
 
 There still are some improvements to be made, such as adding unit tests and improving the UI/UX, but the application is fully functional and ready to be used.
 
+For the purpouse of this project the DB is hosted on MongoDB Atlas, but it can be easily changed to a local DB by changing the `MONGO_URI` variable on the `.env` file and creating the image on the `docker-compose` file.
+
 ## Prerequisites
 
 - Docker: Ensure that you have Docker installed on your system. You can download and install Docker from the official website: [https://www.docker.com](https://www.docker.com)
@@ -44,6 +46,7 @@ BACKEND_URL=http://localhost:4000
 - [TypeScript](https://www.typescriptlang.org/) - TypeScript is a typed superset of JavaScript that compiles to plain JavaScript
 - [Node.js](https://nodejs.org/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
 - [MongoDB](https://www.mongodb.com/) - The application data platform
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - MongoDB Atlas is the global cloud database service for modern applications
 - [Styled Components](https://styled-components.com/) - Visual primitives for the component age
 - [Docker](https://www.docker.com/) - Docker is an open platform for developing, shipping, and running applications
 - [Docker Compose](https://docs.docker.com/compose/) - Compose is a tool for defining and running multi-container Docker applications

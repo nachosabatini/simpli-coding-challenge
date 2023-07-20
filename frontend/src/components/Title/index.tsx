@@ -7,23 +7,27 @@ const headingStyles = {
   1: css`
     font-size: 2.5rem;
     margin-bottom: 20px;
+    line-height: 3rem;
   `,
   2: css`
     font-size: 2rem;
+    line-height: 2.5rem;
   `,
   3: css`
     font-size: 1.5rem;
     line-height: 1.5rem;
-
     color: #333;
   `,
   4: css`
     font-size: 1.25rem;
+    line-height: 1.5rem;
   `,
   5: css`
+    line-height: 1.55rem;
     font-size: 1.15rem;
   `,
   6: css`
+    line-height: 1.55rem;
     font-size: 1rem;
   `,
 };
@@ -36,7 +40,6 @@ interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
 const StyledTitle = styled.h1<TitleProps>`
   margin: 0;
   font-weight: bold;
-  line-height: 1.55rem;
   ${(props) => headingStyles[props.level]}
 `;
 
