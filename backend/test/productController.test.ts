@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../src/server"; // Assuming you have created and exported the Express app in `app.ts`
+import app from "../src/server";
 
 describe("Product Controller", () => {
-  let productId: string; // To store the ID of a created product for further testing
+  let productId: string;
 
   describe("POST /api/products", () => {
     it("should create a new product", async () => {
@@ -28,7 +28,6 @@ describe("Product Controller", () => {
       expect(response.body).toHaveProperty("price", newProduct.price);
       expect(response.body).toHaveProperty("image");
 
-      // Save the ID of the created product for further testing
       productId = response.body._id;
     });
   });
@@ -43,7 +42,6 @@ describe("Product Controller", () => {
       expect(response.body).toHaveProperty("currentPage");
       expect(response.body).toHaveProperty("products");
 
-      // Check if the product we created earlier is included in the response
       expect(
         response.body.products.some((product: any) => product._id === productId)
       ).toBeTruthy();
@@ -62,7 +60,7 @@ describe("Product Controller", () => {
     });
 
     it("should return 404 if the product ID is not found", async () => {
-      const nonExistingProductId = "non-existing-id"; // Replace this with a valid MongoDB ObjectID or a random string
+      const nonExistingProductId = "non-existing-id";
       const response = await request(app).get(
         `/api/products/${nonExistingProductId}`
       );
@@ -102,7 +100,7 @@ describe("Product Controller", () => {
     });
 
     it("should return 404 if the product ID is not found", async () => {
-      const nonExistingProductId = "non-existing-id"; // Replace this with a valid MongoDB ObjectID or a random string
+      const nonExistingProductId = "non-existing-id";
       const response = await request(app)
         .put(`/api/products/${nonExistingProductId}`)
         .field("name", "Updated Test Product")
@@ -127,7 +125,7 @@ describe("Product Controller", () => {
     });
 
     it("should return 404 if the product ID is not found", async () => {
-      const nonExistingProductId = "non-existing-id"; // Replace this with a valid MongoDB ObjectID or a random string
+      const nonExistingProductId = "non-existing-id";
       const response = await request(app).delete(
         `/api/products/${nonExistingProductId}`
       );
