@@ -5,7 +5,7 @@ import { GetServerSideProps, NextPage } from 'next';
 
 interface ProductProps {
   products: Product[];
-  totalProducts: number;
+  totalPages: number;
   currentPage: number;
 }
 
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       products: products.products,
-      totalProducts: products.totalProducts,
+      totalPages: products.totalPages,
       currentPage: products.currentPage,
     },
   };
@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<
 
 const ProductsPage: NextPage<ProductProps> = ({
   products,
-  totalProducts,
+  totalPages,
   currentPage,
 }) => {
   return (
@@ -35,7 +35,7 @@ const ProductsPage: NextPage<ProductProps> = ({
       <Products
         products={products}
         initialCurrentPage={currentPage}
-        initialTotalPages={totalProducts}
+        initialTotalPages={totalPages}
       />
     </>
   );

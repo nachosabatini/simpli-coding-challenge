@@ -15,7 +15,7 @@ const ContentWrapper = styled.div`
   flex: 1;
 `;
 
-const Container: FC = ({ children }: PropsWithChildren) => {
+const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ContainerWrapper>
       <ContentWrapper>{children}</ContentWrapper>
