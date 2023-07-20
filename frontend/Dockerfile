@@ -1,20 +1,25 @@
-# Use the official Node.js image as the base image
-FROM node
+# Stage 1: Build the Next.js application
+FROM node as build
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Copy the entire frontend directory to the container
 COPY . .
 
-# Build the frontend
 RUN npm run build
 
-# Set the command to start the frontend server
+# Stage 2: Create a lightweight production image
+FROM node
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --production
+
+
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+
 CMD ["npm", "start"]

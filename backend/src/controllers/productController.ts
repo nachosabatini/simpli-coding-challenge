@@ -1,15 +1,16 @@
-import { Request, Response } from 'express';
-import Product from '../models/Product';
-import { BufferParser } from '../lib/bufferParser';
+import { Request, Response } from "express";
+import Product from "../models/Product";
+import { BufferParser } from "../lib/bufferParser";
+import mongoose from "mongoose";
 
 // Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const { page = 1, limit = 10, sortByPrice = 'asc' } = req.query;
+    const { page = 1, limit = 10, sortByPrice = "asc" } = req.query;
     const count = await Product.countDocuments();
 
     const products = await Product.find()
-      .sort({ price: sortByPrice === 'asc' ? 1 : -1 }) // Sort products by price
+      .sort({ price: sortByPrice === "asc" ? 1 : -1 }) // Sort products by price
       .skip((Number(page) - 1) * Number(limit))
       .limit(Number(limit));
 
@@ -27,8 +28,8 @@ export const getAllProducts = async (req: Request, res: Response) => {
       products: productsWithImages,
     });
   } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -37,9 +38,12 @@ export const getProductById = async (req: Request, res: Response) => {
   const productId = req.params.id;
 
   try {
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     const productWithImage = {
@@ -48,8 +52,8 @@ export const getProductById = async (req: Request, res: Response) => {
     };
     res.json(productWithImage);
   } catch (error) {
-    console.error('Error fetching product by ID:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error fetching product by ID:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -74,8 +78,8 @@ export const createProduct = async (req: Request, res: Response) => {
 
     res.status(201).json(productWithImage);
   } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error creating product:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -86,9 +90,12 @@ export const updateProduct = async (req: Request, res: Response) => {
   const imageBuffer = req.file?.buffer;
 
   try {
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     product.name = name;
@@ -107,8 +114,8 @@ export const updateProduct = async (req: Request, res: Response) => {
     };
     res.json(productWithImage);
   } catch (error) {
-    console.error('Error updating product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -117,13 +124,16 @@ export const deleteProduct = async (req: Request, res: Response) => {
   const productId = req.params.id;
 
   try {
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     const product = await Product.findByIdAndDelete(productId);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
     res.sendStatus(204);
   } catch (error) {
-    console.error('Error deleting product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -23,16 +23,6 @@ const ModalContent = styled.div`
   width: 100%;
 `;
 
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-`;
-
 interface ModalProps {
   children: React.ReactNode;
 }

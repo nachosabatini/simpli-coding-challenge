@@ -1,7 +1,8 @@
 import Products from '@/components/Products';
+import Title from '@/components/Title';
 
 export const getServerSideProps = async () => {
-  const res = await fetch('http://localhost:4000/api/products');
+  const res = await fetch(`${process.env.BACKEND_URL}/api/products`);
   const products = await res.json();
 
   return {
@@ -14,7 +15,7 @@ export const getServerSideProps = async () => {
 const ManagementPage = ({ products }: any) => {
   return (
     <>
-      <h1>Create, Edit & Delete</h1>
+      <Title level={1}>Create, Edit & Delete</Title>
       <Products products={products} isEditing={true} />
     </>
   );

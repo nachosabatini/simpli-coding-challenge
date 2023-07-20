@@ -3,10 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      "localhost",
-      "res.cloudinary.com",
-      "placekitten.com",
-      "example.com",
+      'localhost',
+      'res.cloudinary.com',
+      'placekitten.com',
+      'example.com',
     ],
   },
   compiler: {

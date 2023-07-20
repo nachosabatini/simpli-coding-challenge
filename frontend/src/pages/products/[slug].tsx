@@ -1,36 +1,62 @@
 import React, { useState } from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import { Product } from '@/types';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Modal from '@/components/Modal';
 import LeadForm from '@/components/LeadForm';
+import Title from '@/components/Title';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const productsData = await fetch('http://localhost:4000/api/products');
-  const products = await productsData.json();
+//THIS CODE IS COMMENT FOR A REASON
+//THIS WAS THE FIRST APPROACH THAT I WANTED TO USE BUT WHEN I WAS TRYING TO RUN THE APP WITH DOCKER
+//I WAS GETTING AN ERROR THAT I COULD NOT SOLVE BECAUSE IT WAS TRYING TO PREFETCH THE DATA
+//WHEN RUNNING THE BUILD AND THE BACKEND WAS NOT RUNNING YET
+//SO FOR PREVENTING THIS ERROR I DECIDED TO USE THE GETSERVERSIDEPROPS INSTEAD OF GETSTATICPROPS
 
-  const paths = products.products.map((product: Product) => ({
-    params: { slug: product._id },
-  }));
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const productsData = await fetch('http://localhost:4000/api/products');
+//   const products = await productsData.json();
 
-  return {
-    paths,
-    fallback: true,
-  };
-};
+//   const paths = products.products.map((product: Product) => ({
+//     params: { slug: product._id },
+//   }));
 
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// };
+
+// export const getStaticProps: GetStaticProps<Props> = async ({
+//   params,
+// }) => {
+//   const slug = params?.slug;
+
+//   const productData = await fetch(`http://localhost:4000/api/products/${slug}`);
+//   const product = await productData.json();
+
+//   return {
+//     props: {
+//       product,
+//     },
+//     revalidate: 1,
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  params,
+}) => {
   const slug = params?.slug;
 
-  const productData = await fetch(`http://localhost:4000/api/products/${slug}`);
+  const productData = await fetch(
+    `${process.env.BACKEND_URL}/api/products/${slug}`
+  );
   const product = await productData.json();
 
   return {
     props: {
       product,
     },
-    revalidate: 1,
   };
 };
 
@@ -114,9 +140,11 @@ const ProductPage: React.FC<Props> = ({ product }) => {
         <ProductDetails>
           <ProductTitle>{product.name}</ProductTitle>
           <ProductPrice>USD {product.price.toFixed(2)}</ProductPrice>
-          <h3>Description</h3>
+          <Title level={3}>Description</Title>
           <ProductDescription>{product.description}</ProductDescription>
-          <CTAButton onClick={handleBuyNow}>Buy Now</CTAButton>
+          <CTAButton onClick={handleBuyNow} style={{ width: '40%' }}>
+            Subscribe
+          </CTAButton>
         </ProductDetails>
       </ProductDetailsContainer>
       {showModal && (

@@ -20,7 +20,6 @@ const Products = ({ products, isEditing = false }: ProductsProps) => {
     currentPage,
     totalPages,
     fetchProducts,
-    addProduct,
     handleEditProduct,
     handleDeleteProduct,
     handleSubmit,
@@ -45,7 +44,7 @@ const Products = ({ products, isEditing = false }: ProductsProps) => {
         />
       )}
       <ProductList
-        products={allProducts || products.products}
+        products={allProducts}
         isEditing={isEditing}
         onEdit={handleEditProduct}
         onDelete={handleDeleteProduct}

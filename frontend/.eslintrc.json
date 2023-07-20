@@ -1,3 +1,7 @@
 {
-  "extends": ["next", "prettier"]
+  "extends": [
+    "next",
+    "prettier" // Add "prettier" to the extends array
+  ]
+  // Other configurations...
 }

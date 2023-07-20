@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import ProductCard from "../ProductCard";
-import { Product } from "@/types";
-import Button from "@/components/Button";
+import styled, { css } from 'styled-components';
+import ProductCard from '../ProductCard';
+import { Product } from '@/types';
+import Button from '@/components/Button';
 
 interface ProductListProps {
   products: Product[];
@@ -41,8 +40,8 @@ const PaginationContainer = styled.div`
 const PaginationButton = styled.button<{ isActive?: boolean }>`
   margin: 0 5px;
   padding: 8px 12px;
-  background-color: ${(props) => (props.isActive ? "#903df7" : "white")};
-  color: ${(props) => (props.isActive ? "white" : "#903df7")};
+  background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
+  color: ${(props) => (props.isActive ? 'white' : '#903df7')};
   border: 1px solid #903df7;
   border-radius: 4px;
   cursor: pointer;
@@ -87,7 +86,7 @@ const ProductList = ({
   return (
     <>
       <Button
-        variant="toggled"
+        variant='toggled'
         isActive={sortByPrice}
         onClick={handleSortByPrice}
       >

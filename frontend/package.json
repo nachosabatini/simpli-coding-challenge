@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prebuild": "npm run lint && npm run format",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint:next": "next lint"
   },
   "dependencies": {
     "@types/node": "20.4.2",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.1.4",
+    "eslint-config-prettier": "^8.8.0",
     "prettier": "^3.0.0"
   },
   "resolutions": {

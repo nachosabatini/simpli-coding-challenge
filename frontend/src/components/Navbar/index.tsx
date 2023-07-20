@@ -16,9 +16,6 @@ const Icon = styled(Image)`
   width: 170px;
   height: 35px;
 `;
-interface props {
-  active?: boolean;
-}
 
 const Container = styled.div`
   max-width: 1440px;
@@ -48,7 +45,9 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <Container>
-        <Icon width={300} height={300} src={simplimuvLogo} alt='Icon' />
+        <Link href='/'>
+          <Icon width={300} height={300} src={simplimuvLogo} alt='Icon' />
+        </Link>
         <LinkContainer>
           <Link href='/' active={router.pathname === '/'}>
             Home
