@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import ProductCard from '../ProductCard';
 import { Product } from '@/types';
 import Button from '@/components/Button';
@@ -35,23 +35,6 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-`;
-
-const PaginationButton = styled.button<{ isActive?: boolean }>`
-  margin: 0 5px;
-  padding: 8px 12px;
-  background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
-  color: ${(props) => (props.isActive ? 'white' : '#903df7')};
-  border: 1px solid #903df7;
-  border-radius: 4px;
-  cursor: pointer;
-
-  ${(props) =>
-    props.isActive &&
-    css`
-      background-color: #903df7;
-      color: white;
-    `}
 `;
 
 const ProductList = ({
@@ -104,24 +87,30 @@ const ProductList = ({
         ))}
       </GridContainer>
       <PaginationContainer>
-        <PaginationButton onClick={handlePrevPage} disabled={currentPage === 1}>
+        <Button
+          variant='pagination'
+          onClick={handlePrevPage}
+          isDisabled={currentPage === 1}
+        >
           Previous
-        </PaginationButton>
+        </Button>
         {Array.from({ length: totalPages }, (_, index) => (
-          <PaginationButton
+          <Button
+            variant='pagination'
             key={index + 1}
             isActive={currentPage === index + 1}
             onClick={() => handlePageChange(index + 1)}
           >
             {index + 1}
-          </PaginationButton>
+          </Button>
         ))}
-        <PaginationButton
+        <Button
+          variant='pagination'
           onClick={handleNextPage}
-          disabled={currentPage === totalPages}
+          isDisabled={currentPage === totalPages}
         >
           Next
-        </PaginationButton>
+        </Button>
       </PaginationContainer>
     </>
   );

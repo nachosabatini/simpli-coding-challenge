@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import Modal from '@/components/Modal';
 import LeadForm from '@/components/LeadForm';
 import Title from '@/components/Title';
+import Button from '@/components/Button';
+import { useRouter } from 'next/router';
 
 //THIS CODE IS COMMENT FOR A REASON
 //THIS WAS THE FIRST APPROACH THAT I WANTED TO USE BUT WHEN I WAS TRYING TO RUN THE APP WITH DOCKER
@@ -93,6 +95,7 @@ const ProductImage = styled.img`
 const ProductDetails = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 `;
 
 const ProductPrice = styled.span`
@@ -105,17 +108,9 @@ const ProductDescription = styled.p`
   line-height: 1.5rem;
 `;
 
-const CTAButton = styled.button`
-  padding: 8px 16px;
-  background-color: #903df7;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
-
 const ProductPage: NextPage<Props> = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const handleBuyNow = () => {
     setShowModal(true);
@@ -124,8 +119,16 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const handleGoBack = () => {
+    router.push('/products');
+  };
+
   return (
     <>
+      <Button onClick={handleGoBack} variant='secondary'>
+        Back to Products
+      </Button>
       <ProductDetailsContainer>
         <ProductImage src={product.image} alt={product.name} />
         <ProductDetails>
@@ -133,9 +136,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
           <ProductPrice>USD {product.price.toFixed(2)}</ProductPrice>
           <Title level={3}>Description</Title>
           <ProductDescription>{product.description}</ProductDescription>
-          <CTAButton onClick={handleBuyNow} style={{ width: '40%' }}>
-            I want it!
-          </CTAButton>
+          <Button onClick={handleBuyNow}>I want it!</Button>
         </ProductDetails>
       </ProductDetailsContainer>
       {showModal && (

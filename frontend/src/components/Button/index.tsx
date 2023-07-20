@@ -1,17 +1,23 @@
 import { ButtonHTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
-type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'toggled';
+type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'danger'
+  | 'toggled'
+  | 'pagination';
 
 interface SharedButtonStyles {
   isActive?: boolean;
+  isDisabled?: boolean;
 }
 
 const sharedButtonStyles = css<SharedButtonStyles>`
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isDisabled ? 'not-allowed' : 'pointer')};
   font-size: 14px;
   font-weight: bold;
 
@@ -20,6 +26,13 @@ const sharedButtonStyles = css<SharedButtonStyles>`
     css`
       background-color: #903df7;
       color: white;
+    `}
+
+  ${(props) =>
+    props.isDisabled &&
+    css`
+      opacity: 0.6;
+      pointer-events: none;
     `}
 `;
 
@@ -65,25 +78,55 @@ const ToggledButton = styled.button<SharedButtonStyles>`
   }
 `;
 
+const PaginationButtonVariant = styled.button<SharedButtonStyles>`
+  ${sharedButtonStyles}
+  margin: 0 5px;
+  background-color: ${(props) => (props.isActive ? '#903df7' : 'white')};
+  color: ${(props) => (props.isActive ? 'white' : '#903df7')};
+  border: 1px solid #903df7;
+`;
+
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   isActive?: boolean;
+  isDisabled?: boolean;
 };
 
 const Button: React.FC<ButtonProps> = ({
   isActive,
   variant = 'primary',
+  isDisabled = false,
   ...props
 }) => {
   switch (variant) {
     case 'secondary':
-      return <SecondaryButton {...props} isActive={isActive} />;
+      return (
+        <SecondaryButton
+          {...props}
+          isActive={isActive}
+          isDisabled={isDisabled}
+        />
+      );
     case 'danger':
-      return <DangerButton {...props} isActive={isActive} />;
+      return (
+        <DangerButton {...props} isActive={isActive} isDisabled={isDisabled} />
+      );
     case 'toggled':
-      return <ToggledButton {...props} isActive={isActive} />;
+      return (
+        <ToggledButton {...props} isActive={isActive} isDisabled={isDisabled} />
+      );
+    case 'pagination':
+      return (
+        <PaginationButtonVariant
+          {...props}
+          isActive={isActive}
+          isDisabled={isDisabled}
+        />
+      );
     default:
-      return <PrimaryButton {...props} isActive={isActive} />;
+      return (
+        <PrimaryButton {...props} isActive={isActive} isDisabled={isDisabled} />
+      );
   }
 };
 

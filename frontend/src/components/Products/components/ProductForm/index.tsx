@@ -108,7 +108,13 @@ const ProductForm = ({
         onChange={handleFileChange}
         accept='image/*'
       />
-      <Button variant='primary' type='submit'>
+      <Button
+        variant='primary'
+        type='submit'
+        isDisabled={
+          !formData.description || !formData.name || !formData.price || !image
+        }
+      >
         {selectedProduct ? 'Update Product' : 'Create Product'}
       </Button>
     </FormContainer>

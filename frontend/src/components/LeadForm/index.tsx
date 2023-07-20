@@ -3,21 +3,13 @@ import { FC, useState } from 'react';
 import styled from 'styled-components';
 import Input from '@/components/Input';
 import Title from '@/components/Title';
+import Button from '@/components/Button';
 
 const FormContainer = styled.form`
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  background-color: #903df7;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 `;
 
 const CloseButton = styled.button`
@@ -108,7 +100,12 @@ const LeadForm: FC<{
         required
       />
 
-      <Button type='submit'>Submit</Button>
+      <Button
+        type='submit'
+        isDisabled={!formData.phone || !formData.email || !formData.name}
+      >
+        Submit
+      </Button>
     </FormContainer>
   );
 };
