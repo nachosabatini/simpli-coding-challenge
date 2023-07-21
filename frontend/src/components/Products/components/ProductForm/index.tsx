@@ -1,7 +1,7 @@
 import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { Product } from '@/types';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const FormContainer = styled.form`
@@ -10,14 +10,16 @@ const FormContainer = styled.form`
   margin-bottom: 20px;
 `;
 
-const ProductForm = ({
-  onSubmit,
-  selectedProduct,
-}: {
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+`;
+
+const ProductForm: FC<{
   onSubmit: (product: any) => void;
   selectedProduct: Product | null;
-  setSelectedProduct: (product: Product) => void;
-}) => {
+}> = ({ onSubmit, selectedProduct }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -33,17 +35,6 @@ const ProductForm = ({
         description: selectedProduct.description,
         price: selectedProduct.price.toString(),
       });
-    } else {
-      setFormData({
-        name: '',
-        description: '',
-        price: '',
-      });
-
-      setImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     }
   }, [selectedProduct, onSubmit]);
 
@@ -71,6 +62,16 @@ const ProductForm = ({
     };
 
     onSubmit(productData);
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setFormData({
+      name: '',
+      description: '',
+      price: '',
+    });
+    setImage(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -108,15 +109,23 @@ const ProductForm = ({
         onChange={handleFileChange}
         accept='image/*'
       />
-      <Button
-        variant='primary'
-        type='submit'
-        isDisabled={
-          !formData.description || !formData.name || !formData.price || !image
-        }
-      >
-        {selectedProduct ? 'Update Product' : 'Create Product'}
-      </Button>
+      <ButtonContainer>
+        <Button
+          variant='primary'
+          type='submit'
+          isDisabled={
+            !formData.description ||
+            !formData.name ||
+            !formData.price ||
+            (!image && !selectedProduct?.image)
+          }
+        >
+          {selectedProduct ? 'Update Product' : 'Create Product'}
+        </Button>
+        <Button variant='secondary' onClick={clearForm}>
+          Clear
+        </Button>
+      </ButtonContainer>
     </FormContainer>
   );
 };

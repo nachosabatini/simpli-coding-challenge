@@ -2,24 +2,25 @@ import Products from '@/components/Products';
 import Title from '@/components/Title';
 import { Product } from '@/types';
 import { GetServerSideProps, NextPage } from 'next';
+import { fetchProducts } from '@/utils/product-api';
 
 interface ProductProps {
   products: Product[];
   totalPages: number;
   currentPage: number;
+  totalItems: number;
 }
 
 export const getServerSideProps: GetServerSideProps<
   ProductProps
 > = async () => {
-  const res = await fetch(`${process.env.BACKEND_URL}/api/products`);
-
-  const products = await res.json();
+  const data = await fetchProducts(1, false);
   return {
     props: {
-      products: products.products,
-      totalPages: products.totalPages,
-      currentPage: products.currentPage,
+      products: data.products,
+      totalPages: data.totalPages,
+      currentPage: data.currentPage,
+      totalItems: data.totalProducts,
     },
   };
 };
@@ -28,14 +29,16 @@ const ProductsPage: NextPage<ProductProps> = ({
   products,
   totalPages,
   currentPage,
+  totalItems,
 }) => {
   return (
     <>
       <Title level={1}>Products</Title>
       <Products
         products={products}
-        initialCurrentPage={currentPage}
-        initialTotalPages={totalPages}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        totalItems={totalItems}
       />
     </>
   );

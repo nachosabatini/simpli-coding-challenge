@@ -11,7 +11,8 @@ interface ProductListProps {
   totalPages: number;
   currentPage: number;
   sortByPrice: boolean;
-  onPageChange: (page: number, sortByPrice: boolean) => void;
+  handleSortByPrice: () => void;
+  onPageChange: (page: number) => void;
 }
 
 const GridContainer = styled.div`
@@ -46,26 +47,8 @@ const ProductList = ({
   currentPage,
   onPageChange,
   sortByPrice,
+  handleSortByPrice,
 }: ProductListProps) => {
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1, sortByPrice);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1, sortByPrice);
-    }
-  };
-
-  const handlePageChange = (page: number) => {
-    onPageChange(page, sortByPrice);
-  };
-
-  const handleSortByPrice = () => {
-    onPageChange(currentPage, !sortByPrice);
-  };
   return (
     <>
       <Button
@@ -89,7 +72,7 @@ const ProductList = ({
       <PaginationContainer>
         <Button
           variant='pagination'
-          onClick={handlePrevPage}
+          onClick={() => onPageChange(currentPage - 1)}
           isDisabled={currentPage === 1}
         >
           Previous
@@ -99,14 +82,14 @@ const ProductList = ({
             variant='pagination'
             key={index + 1}
             isActive={currentPage === index + 1}
-            onClick={() => handlePageChange(index + 1)}
+            onClick={() => onPageChange(index + 1)}
           >
             {index + 1}
           </Button>
         ))}
         <Button
           variant='pagination'
-          onClick={handleNextPage}
+          onClick={() => onPageChange(currentPage + 1)}
           isDisabled={currentPage === totalPages}
         >
           Next

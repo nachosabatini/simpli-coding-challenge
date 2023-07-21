@@ -1,35 +1,73 @@
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import { Product } from '@/types';
-import useProductAPI from '@/hooks/useProductsAPI';
+import { useState } from 'react';
+import useProductMutations from '@/hooks/useProductsMutation';
+import useFetchProducts from '@/hooks/useFetchProducts';
 
 interface ProductsProps {
   products: Product[];
-  initialTotalPages: number;
-  initialCurrentPage: number;
+  totalPages: number;
+  currentPage: number;
+  totalItems: number;
   isEditing?: boolean;
 }
 
 const Products = ({
   products,
-  initialTotalPages,
-  initialCurrentPage,
+  totalPages,
+  totalItems,
   isEditing = false,
 }: ProductsProps) => {
-  const {
-    allProducts,
-    selectedProduct,
-    currentPage,
-    totalPages,
-    fetchProducts,
-    handleEditProduct,
-    handleDeleteProduct,
-    handleSubmit,
-    sortByPrice,
-  } = useProductAPI(products, initialTotalPages, initialCurrentPage);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [sortByPrice, setSortByPrice] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = async (page: number, sortByPrice: boolean) => {
-    await fetchProducts(page, sortByPrice);
+  const fetchProductsQuery = useFetchProducts(currentPage, sortByPrice, {
+    products,
+    totalPages,
+    currentPage,
+    totalItems,
+  });
+
+  const { data: allProducts } = fetchProductsQuery;
+
+  const { deleteProduct, updateProduct, addProduct } = useProductMutations(
+    fetchProductsQuery.refetch
+  );
+
+  const handleAddProduct = (newProduct: Product) => {
+    addProduct.mutate(newProduct);
+  };
+
+  const handleDeleteProduct = (productId: string | undefined) => {
+    deleteProduct.mutate(productId);
+  };
+
+  const handleUpdate = (productData: Product) => {
+    updateProduct.mutate(productData);
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleSubmit = (productData: any) => {
+    if (selectedProduct?._id) {
+      setSelectedProduct(null);
+      handleUpdate({ ...productData, _id: selectedProduct._id });
+    } else {
+      handleAddProduct(productData);
+    }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleSortByPrice = () => {
+    setSortByPrice((prevSort) => !prevSort);
+    fetchProductsQuery.refetch();
   };
 
   return (
@@ -37,19 +75,19 @@ const Products = ({
       {isEditing && (
         <ProductForm
           selectedProduct={selectedProduct}
-          setSelectedProduct={handleEditProduct}
           onSubmit={handleSubmit}
         />
       )}
       <ProductList
-        products={allProducts}
+        products={allProducts.products}
         isEditing={isEditing}
         onEdit={handleEditProduct}
         onDelete={handleDeleteProduct}
-        totalPages={totalPages}
-        currentPage={currentPage}
+        totalPages={allProducts.totalPages}
+        currentPage={allProducts.currentPage}
         onPageChange={handlePageChange}
         sortByPrice={sortByPrice}
+        handleSortByPrice={handleSortByPrice}
       />
     </>
   );

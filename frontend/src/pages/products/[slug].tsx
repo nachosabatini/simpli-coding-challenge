@@ -7,56 +7,18 @@ import LeadForm from '@/components/LeadForm';
 import Title from '@/components/Title';
 import Button from '@/components/Button';
 import { useRouter } from 'next/router';
-
-//THIS CODE IS COMMENT FOR A REASON
-//THIS WAS THE FIRST APPROACH THAT I WANTED TO USE BUT WHEN I WAS TRYING TO RUN THE APP WITH DOCKER
-//I WAS GETTING AN ERROR THAT I COULD NOT SOLVE BECAUSE IT WAS TRYING TO PREFETCH THE DATA
-//WHEN RUNNING THE BUILD AND THE BACKEND WAS NOT RUNNING YET
-//SO FOR PREVENTING THIS ERROR I DECIDED TO USE THE GETSERVERSIDEPROPS INSTEAD OF GETSTATICPROPS
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const productsData = await fetch('http://localhost:4000/api/products');
-//   const products = await productsData.json();
-
-//   const paths = products.products.map((product: Product) => ({
-//     params: { slug: product._id },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps<Props> = async ({
-//   params,
-// }) => {
-//   const slug = params?.slug;
-
-//   const productData = await fetch(`http://localhost:4000/api/products/${slug}`);
-//   const product = await productData.json();
-
-//   return {
-//     props: {
-//       product,
-//     },
-//     revalidate: 1,
-//   };
-// };
+import { fetchOneProduct } from '@/utils/product-api';
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({
   params,
 }) => {
   const slug = params?.slug;
 
-  const productData = await fetch(
-    `${process.env.BACKEND_URL}/api/products/${slug}`
-  );
-  const product = await productData.json();
+  const productData = await fetchOneProduct(slug);
 
   return {
     props: {
-      product,
+      product: productData,
     },
   };
 };
