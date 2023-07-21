@@ -35,7 +35,7 @@ BACKEND_URL=http://localhost:4000
 ```
 
 8. Change to the root directory: `cd ..`
-9. Start the Docker containers: `docker-compose up`
+9. Start the Docker containers: `docker-compose up --build`
 10. Access the application at [http://localhost:3000](http://localhost:3000)
 11. Enjoy!
 
