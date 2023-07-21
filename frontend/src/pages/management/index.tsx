@@ -1,18 +1,10 @@
 import Products from '@/components/Products';
 import Title from '@/components/Title';
-import { Product } from '@/types';
-import { fetchProducts } from '@/utils/product-api';
+import { ProductAPIProps, fetchProducts } from '@/utils/product-api';
 import { GetServerSideProps, NextPage } from 'next';
 
-interface ProductProps {
-  products: Product[];
-  totalPages: number;
-  currentPage: number;
-  totalItems: number;
-}
-
 export const getServerSideProps: GetServerSideProps<
-  ProductProps
+  ProductAPIProps
 > = async () => {
   const data = await fetchProducts(1, false);
   return {
@@ -25,7 +17,7 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-const ManagementPage: NextPage<ProductProps> = ({
+const ManagementPage: NextPage<ProductAPIProps> = ({
   products,
   totalPages,
   currentPage,

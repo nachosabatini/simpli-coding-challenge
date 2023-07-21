@@ -1,4 +1,10 @@
 import { Product } from '@/types';
+export interface ProductAPIProps {
+  products: Product[];
+  totalPages: number;
+  currentPage: number;
+  totalItems: number;
+}
 
 const deleteProduct = async (productId: string | undefined) => {
   try {
