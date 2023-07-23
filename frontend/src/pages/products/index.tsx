@@ -6,13 +6,15 @@ import { ProductAPIProps, fetchProducts } from '@/utils/product-api';
 export const getServerSideProps: GetServerSideProps<
   ProductAPIProps
 > = async () => {
-  const data = await fetchProducts(1, false);
+  const res = await fetch(`${process.env.BACKEND_URL}/api/products`);
+
+  const { products, totalPages, currentPage, totalProducts } = await res.json();
   return {
     props: {
-      products: data.products,
-      totalPages: data.totalPages,
-      currentPage: data.currentPage,
-      totalItems: data.totalProducts,
+      products: products,
+      totalPages: totalPages,
+      currentPage: currentPage,
+      totalItems: totalProducts,
     },
   };
 };

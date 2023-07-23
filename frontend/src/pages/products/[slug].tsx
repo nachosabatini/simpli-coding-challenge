@@ -14,11 +14,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 }) => {
   const slug = params?.slug;
 
-  const productData = await fetchOneProduct(slug);
+  const productData = await fetch(
+    `${process.env.BACKEND_URL}/api/products/${slug}`
+  );
+  const product = await productData.json();
 
   return {
     props: {
-      product: productData,
+      product: product,
     },
   };
 };
